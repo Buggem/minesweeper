@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdint.h>
+#include <time.h>
 #include "mines.h"
 
 #ifdef EMBEDDEDPNG
@@ -20,6 +21,7 @@ int main(int argc, char* args[])
     IMG_Init(IMG_INIT_PNG);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
+    srand(time(NULL));
     mines_init();
 
     w = 20 + GRIDWIDTH  * CELL_SIZE;

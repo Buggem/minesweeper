@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <time.h>
 #include "mines.h"
 
 
@@ -194,7 +193,6 @@ void mines_init() {
     face = FACE_HAPPY;
 
     memset(grid, 4, sizeof(grid));
-    srand(time(NULL));
 
     long minescount = 0;
     while(minescount < HOWMANY) {
