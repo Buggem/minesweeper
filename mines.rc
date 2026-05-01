@@ -1,0 +1,24 @@
+id ICON "winicon.ico"
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "080904E4"
+    BEGIN
+      VALUE "CompanyName", "buggem.github.io"
+      VALUE "FileDescription", "Open-source Minesweeper for Microsoft Windows(R) systems"
+      VALUE "FileVersion", "1.0"
+      VALUE "InternalName", "minesweeper"
+      VALUE "LegalCopyright", ""
+      VALUE "OriginalFilename", "minesweeper.exe"
+      VALUE "ProductName", "Minesweeper"
+      VALUE "ProductVersion", "1.0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x809, 1252
+  END
+END
