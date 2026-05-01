@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <time.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "mines.h"
 
 #ifdef EMBEDDEDPNG
@@ -16,7 +20,16 @@ SDL_Texture *texture;
 int w, h, vps;
 long frame, beginFrame;
 
+#ifdef _WIN32
+int WinMain(
+  HINSTANCE hInstance,
+  HINSTANCE hPrevInstance,
+  LPSTR     lpCmdLine,
+  int       nShowCmd
+)
+#else
 int main(int argc, char* argv[])
+#endif
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
