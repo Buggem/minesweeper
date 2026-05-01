@@ -6,6 +6,7 @@ extern SDL_Surface *surface;
 extern SDL_Texture *texture;
 extern int w, h, vps;
 extern long frame;
+extern bool downface;
 
 void mines_drawBackground();
 void mines_3numbers(int num, int x, int y);

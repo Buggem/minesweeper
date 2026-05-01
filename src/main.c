@@ -3,9 +3,6 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <time.h>
-#ifdef _WIN32
-#include <windows.h>
-#endif
 
 #include "mines.h"
 
@@ -19,17 +16,9 @@ SDL_Renderer *renderer;
 SDL_Texture *texture;
 int w, h, vps;
 long frame, beginFrame;
+bool downface = false;
 
-#ifdef _WIN32
-int WinMain(
-  HINSTANCE hInstance,
-  HINSTANCE hPrevInstance,
-  LPSTR     lpCmdLine,
-  int       nShowCmd
-)
-#else
 int main(int argc, char* argv[])
-#endif
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
@@ -108,13 +97,21 @@ int main(int argc, char* argv[])
         mines_3numbers((frame-beginFrame)/vps, w-(NUMWIDTH*THENUMBER3+16), 14);
         int facex = (w-FACE_SIZE)/2, facey = 13;
         if((mx >= facex && mx < facex+FACE_SIZE) && (my >= facey && my < facey+FACE_SIZE)) {
-            mines_face((mstate & SDL_BUTTON(1)) != 0 ? FACE_PRESS : face, facex, facey);
+            mines_face((mstate & SDL_BUTTON(1)) != 0 && downface ? FACE_PRESS : face, facex, facey);
+            if((mDownMask & SDL_BUTTON(1)) != 0) {
+                downface = true;
+            }
             if((mUpMask & SDL_BUTTON(1)) != 0) {
-                mines_init();
+                if(downface) mines_init();
+                downface = false;
             }
         }
-        else
+        else {
             mines_face(face, facex, facey);
+            if((mUpMask & SDL_BUTTON(1)) != 0) {
+                downface = false;
+            }
+        }
 
         mines_cells(CELLX, CELLY);
 
