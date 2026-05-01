@@ -2,6 +2,12 @@
 #include <SDL2/SDL_image.h>
 #include <stdint.h>
 #include "mines.h"
+
+#ifdef EMBEDDEDPNG
+#include "mines_png.h"
+#include "icon_png.h"
+#endif
+
 SDL_Window *window;
 SDL_Renderer *renderer;
 SDL_Texture *texture;
@@ -25,11 +31,22 @@ int main(int argc, char* args[])
     SDL_SetRenderDrawColor(renderer, 189, 189, 189, 255);
     SDL_RenderSetLogicalSize(renderer, w, h);
 
+#ifdef EMBEDDEDPNG
+    SDL_RWops* sprw = SDL_RWFromMem(mines_png, mines_png_len);
+
+    texture = IMG_LoadTexture_RW(renderer, sprw, 1);
+
+    SDL_RWops* icrw = SDL_RWFromMem(icon_png, icon_png_len);
+
+    SDL_Surface *icon = IMG_Load_RW(icrw, 1);
+#else
     SDL_Surface *sprite = IMG_Load("mines.png");
     texture = SDL_CreateTextureFromSurface(renderer, sprite);
     SDL_FreeSurface(sprite);
 
     SDL_Surface *icon = IMG_Load("icon.png");
+#endif
+
     SDL_SetWindowIcon(window, icon);
 
     frame = 0;
@@ -93,6 +110,7 @@ int main(int argc, char* args[])
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    SDL_FreeSurface(icon);
 
     return 0;
 }
