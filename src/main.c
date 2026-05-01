@@ -16,7 +16,7 @@ SDL_Texture *texture;
 int w, h, vps;
 long frame, beginFrame;
 
-int main(int argc, char* args[])
+int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
