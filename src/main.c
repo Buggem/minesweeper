@@ -20,8 +20,14 @@ bool downface = false;
 
 int main(int argc, char* argv[])
 {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    IMG_Init(IMG_INIT_PNG);
+    if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        fprintf(stderr, "SDL initialization failed! %s\n", SDL_GetError());
+        return 1;
+    }
+    if(IMG_Init(IMG_INIT_PNG) == 0) {
+        fprintf(stderr, "SDL_image initialization failed! %s\n", SDL_GetError());
+        return 1;
+    }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
     srand(time(NULL));
@@ -31,7 +37,18 @@ int main(int argc, char* argv[])
     h = 64 + GRIDHEIGHT * CELL_SIZE;
 
     window = SDL_CreateWindow("Minesweeper", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w * SCALE, h * SCALE, SDL_WINDOW_SHOWN);
+    if (window == NULL)
+    {
+        printf("Couldn't create window! %s\n", SDL_GetError());
+        return 1;
+    }
+
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (renderer == NULL)
+    {
+        printf("Couldn't create renderer! %s\n", SDL_GetError());
+        return 1;
+    }
 
     SDL_SetRenderDrawColor(renderer, 189, 189, 189, 255);
     SDL_RenderSetLogicalSize(renderer, w, h);
