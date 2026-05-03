@@ -131,7 +131,6 @@ int flags = 0;
 int face = FACE_HAPPY;
 int deadcx = -1, deadcy = -1;
 bool begun = false, died = false;
-unsigned char grid[GRIDWIDTH][GRIDHEIGHT];
 
 long mines_count() {
     long minescount = 0;
@@ -192,7 +191,8 @@ void mines_init() {
     died = false;
     face = FACE_HAPPY;
 
-    memset(grid, 4, sizeof(grid));
+    for(int i = 0; i < GRIDWIDTH; i++)
+        memset(grid[i], 4, GRIDHEIGHT * sizeof(unsigned char));
 
     long minescount = 0;
     while(minescount < HOWMANY) {

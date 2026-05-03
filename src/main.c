@@ -5,6 +5,7 @@
 #include <time.h>
 
 #include "mines.h"
+#include "config.h"
 
 #ifdef EMBEDDEDPNG
 #include "mines_png.h"
@@ -20,6 +21,8 @@ bool downface = false;
 
 int main(int argc, char* argv[])
 {
+    if(config_game(argc, argv) != 0) return 1;
+
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         fprintf(stderr, "SDL initialization failed! %s\n", SDL_GetError());
         return 1;
@@ -145,6 +148,10 @@ int main(int argc, char* argv[])
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_FreeSurface(icon);
+
+    for(int i = 0; i < GRIDWIDTH; i++)
+        free(grid[i]);
+    free(grid);
 
     return 0;
 }

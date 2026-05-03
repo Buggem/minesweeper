@@ -41,9 +41,8 @@ extern int deadcx, deadcy;
 extern long beginFrame;
 extern bool begun, died;
 
-#define GRIDWIDTH 9
-#define GRIDHEIGHT 9
-#define HOWMANY 10
+extern int GRIDWIDTH, GRIDHEIGHT;
+extern int HOWMANY;
 
 ////////////////////////////////
 // bits and flags             //
@@ -53,7 +52,7 @@ extern bool begun, died;
 // 3 - is it flagged          //
 // 4 - is it question flagged //
 ////////////////////////////////
-extern unsigned char grid[GRIDWIDTH][GRIDHEIGHT];
+extern unsigned char** grid;
 
 long mines_count();
 long mines_cellsleft();
