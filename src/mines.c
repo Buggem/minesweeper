@@ -220,14 +220,12 @@ void mines_logic(int mx, int my, uint32_t mstate, uint32_t mUpMask, uint32_t mDo
             celly = (my - CELLY) / CELL_SIZE;
 
         // don't even try to get me to explain this awful code
-        if((grid[cellx][celly] & 8) == 0) {
+        if((grid[cellx][celly] & 8) == 0 && !downface) {
             if(run && (mstate & SDL_BUTTON(1)) != 0) {
-                face = FACE_SHOCK;
                 dontrechoose = (grid[cellx][celly] & 4) != 0;
                 grid[cellx][celly] = grid[cellx][celly] & ~4; // unchosen[cellx][celly] = false;
             }
             else if(!run && (mstate & SDL_BUTTON(1)) != 0) {
-                face = FACE_HAPPY;
                 if(dontrechoose) grid[cellx][celly] |= 4; // unchosen[cellx][celly] = true;
             }
         }

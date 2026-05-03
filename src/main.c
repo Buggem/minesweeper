@@ -112,6 +112,10 @@ int main(int argc, char* argv[])
                 downface = false;
             }
         }
+        if(!died && !downface) {
+            if((mstate & SDL_BUTTON(1)) != 0) face = FACE_SHOCK;
+            else face = FACE_HAPPY;
+        }
 
         mines_cells(CELLX, CELLY);
 
