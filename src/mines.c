@@ -232,7 +232,7 @@ void mines_logic(int mx, int my, uint32_t mstate, uint32_t mUpMask, uint32_t mDo
         if(!run) return;
 
         // if it works it works lol
-        if((mUpMask & SDL_BUTTON(1)) != 0 && (grid[cellx][celly] & 8) == 0) {
+        if((mUpMask & SDL_BUTTON(1)) != 0 && (grid[cellx][celly] & 8) == 0 && !downface) {
             //grid[cellx][celly] = grid[cellx][celly] & ~4; // unchosen[cellx][celly] = false;
             //grid[cellx][celly] |= 2; // flags mines as "revealed"
 
@@ -263,7 +263,7 @@ void mines_logic(int mx, int my, uint32_t mstate, uint32_t mUpMask, uint32_t mDo
             }
         }
 
-        if((mUpMask & SDL_BUTTON(3)) != 0 && (grid[cellx][celly] & 2) == 0) {
+        if((mDownMask & SDL_BUTTON(3)) != 0 && (grid[cellx][celly] & 2) == 0) {
             if((grid[cellx][celly] & 8) != 0) {
                 grid[cellx][celly] &= ~8;
                 grid[cellx][celly] |= 16;
